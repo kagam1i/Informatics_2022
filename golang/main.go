@@ -3,6 +3,7 @@ package main
 import (
 	"fmt"
 	"math"
+	"strings"
 )
 
 func main() {
@@ -11,10 +12,22 @@ func main() {
 	var s int
 	fmt.Scan(&s)
 	var k int
-	fmt.Scan(&k)
 	var n, m int
+	var f int
+	var phrase string
+	var x, z int
+	var FA []int
+	var SOM [][]int
+	fmt.Scan(&s)
+	fmt.Scan(&k)
+	fmt.Scan(&FA)
+	fmt.Scan(&SOM)
 	fmt.Scan(&n)
+	fmt.Scan(&f)
 	fmt.Scan(&m)
+	fmt.Scan(&phrase)
+	fmt.Scan(&x)
+	fmt.Scan(&z)
 	fmt.Println("Задание А")
 	fmt.Println(TaskA(a, b))
 	fmt.Println("Задание Б")
@@ -23,6 +36,9 @@ func main() {
 	fmt.Println(CountingSheep())
 	fmt.Println(CountTheMonkeys(k))
 	fmt.Println(SchoolPaperwork(n, m))
+	fmt.Println(PolishAlphabet(phrase))
+	fmt.Println(FindAll(FA, f))
+	fmt.Println(SummOfMin(SOM, x, z))
 }
 
 func TaskA(a, b float64) []float64 {
@@ -85,4 +101,46 @@ func SchoolPaperwork(n, m int) int {
 		paper = 0
 	}
 	return paper
+}
+
+func PolishAlphabet(phrase string) string {
+	var dictionary [][]string = [][]string{
+		{"ą", "a"},
+		{"ć", "c"},
+		{"ę", "e"},
+		{"ł", "l"},
+		{"ń", "n"},
+		{"ó", "o"},
+		{"ś", "s"},
+		{"ź", "z"},
+		{"ż", "z"},
+	}
+	for i := 0; i < len(dictionary); i++ {
+		phrase = strings.Replace(phrase, dictionary[i][0], dictionary[i][1], 1)
+	}
+	return phrase
+}
+
+func FindAll(FA []int, f int) []int {
+	var res []int
+	for i := 0; i < len(FA); i++ {
+		if FA[i] == f {
+			res = append(res, i)
+		}
+	}
+	return res
+}
+
+func SummOfMin(SOM [][]int, x, z int) int {
+	var res int = 0
+	for i := 0; i < (x); i++ {
+		min := math.Inf(1)
+		for k := 0; k < (z); k++ {
+			if float64(SOM[i][k]) < min {
+				min = float64(SOM[i][k])
+			}
+		}
+		res = res + int(min)
+	}
+	return res
 }
